@@ -1,6 +1,6 @@
 # One Thought
 
-> *One sentence. Anonymous. Nothing stored on a server.*
+> *One sentence. Anonymous. Shared with the world.*
 
 Write one thought — 120 characters max.
 Read one stranger's thought every visit.
@@ -14,25 +14,25 @@ This one asks for exactly one sentence — then lets it go.
 
 ## How it works
 
-- **On load** — you see a random thought from someone else
+- **On load** — you see a random real thought from someone, somewhere
 - **Write yours** — 120 character hard limit, one sentence, no exceptions
-- **Submit** — your thought appears word by word, then joins the pool
-- **Next visit** — someone else might read yours
+- **Submit** — your thought appears word by word, then joins the global pool
+- **Next visit** — a stranger reads yours. You read theirs.
 
 ## Features
 
 - Word-by-word reveal animation on submit
 - Smooth view transitions (no page reloads)
 - Anonymous — no accounts, no tracking
-- Seeded with 15 real-feeling thoughts so it never feels empty
-- localStorage for demo persistence
+- Real shared pool — every thought is from a real person
+- Starts empty. You could be the first.
 
 ## Stack
 
 - Vanilla HTML, CSS, JavaScript
 - Playfair Display + Inconsolata (Google Fonts)
-- Three files. Open `index.html` and it works.
-- Zero dependencies. Zero build step.
+- Supabase (anonymous read + insert, no auth)
+- Three files. Zero dependencies. Zero build step.
 
 ## Run it
 ```bash
@@ -40,17 +40,15 @@ This one asks for exactly one sentence — then lets it go.
 open index.html
 ```
 
-Or drop it on any static host — GitHub Pages, Netlify, Vercel.
+Or visit the live version on GitHub Pages.
 
-## Notes
+## Backend
 
-localStorage means thoughts persist per-browser, per-device.
-For a real shared pool, swap localStorage for any lightweight backend
-(Supabase, PocketBase, Firebase — a single table with one column).
+Thoughts are stored in a Supabase table with two columns: `text` and `created_at`.
+Row Level Security is enabled — anyone can read and insert, nobody can edit or delete.
+No user data is collected. No cookies. No fingerprinting.
+
+## Credits
+
+Crafted by [Tahir](https://tahirhassan.me)
 ```
-
----
-
-**Topics/tags:**
-```
-one-sentence  anonymous  minimalist  vanilla-js  writing  black-and-white  calm-tech  typography  thoughts  no-framework
