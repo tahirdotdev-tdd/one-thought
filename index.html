@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>One Thought</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23000'/%3E%3Ccircle cx='8' cy='8' r='2.5' fill='%23fff'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inconsolata:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- STRANGER'S THOUGHT (shown on load) -->
+  <section id="stranger-view" class="view">
+    <div class="view-inner">
+      <p class="eyebrow">a stranger's thought</p>
+      <blockquote id="stranger-text" class="thought-display"></blockquote>
+      <div class="stranger-actions">
+        <button id="next-btn" class="ghost-btn">another →</button>
+        <button id="write-btn" class="primary-btn">write yours</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- WRITE MODE -->
+  <section id="write-view" class="view hidden">
+    <div class="view-inner">
+      <p class="eyebrow">one thought, nothing more</p>
+      <div class="input-area">
+        <textarea
+          id="thought-input"
+          maxlength="120"
+          placeholder="say the thing you've been thinking about…"
+          rows="1"
+          spellcheck="false"
+        ></textarea>
+        <div class="char-row">
+          <span id="char-count">0</span><span class="char-max"> / 120</span>
+        </div>
+      </div>
+      <div class="write-actions">
+        <button id="submit-btn" class="primary-btn" disabled>release it</button>
+        <button id="cancel-btn" class="ghost-btn">← back</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- READ MODE (after submitting) -->
+  <section id="read-view" class="view hidden">
+    <div class="view-inner">
+      <p class="eyebrow">your thought, released</p>
+      <blockquote id="read-text" class="thought-display"></blockquote>
+      <div class="read-actions">
+        <button id="again-btn" class="ghost-btn">see another thought</button>
+      </div>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>

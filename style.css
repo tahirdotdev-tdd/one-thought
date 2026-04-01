@@ -1,0 +1,255 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --black: #0a0a0a;
+  --white: #f8f8f6;
+  --grey:  #999;
+  --light: #ddd;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-mono:  'Inconsolata', monospace;
+  --trans: 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html {
+  font-size: 16px;
+  background: var(--black);
+}
+
+body {
+  min-height: 100vh;
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-serif);
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+/* ── VIEWS ── */
+.view {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  transition: opacity var(--trans), transform var(--trans);
+}
+
+.view.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(18px);
+}
+
+.view.exit-up {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-18px);
+}
+
+.view-inner {
+  width: 100%;
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.4rem;
+  text-align: center;
+}
+
+/* ── EYEBROW ── */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--grey);
+  animation: fadeSlideDown 0.6s ease both;
+}
+
+/* ── THOUGHT DISPLAY ── */
+.thought-display {
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 5vw, 2.6rem);
+  font-weight: 400;
+  line-height: 1.38;
+  letter-spacing: -0.01em;
+  color: var(--white);
+  font-style: italic;
+  max-width: 560px;
+  position: relative;
+  quotes: none;
+}
+
+.thought-display::before {
+  content: '"';
+  font-size: 5rem;
+  line-height: 0;
+  vertical-align: -0.6rem;
+  color: rgba(255,255,255,0.08);
+  font-style: normal;
+  margin-right: 0.1em;
+}
+
+/* ── TEXTAREA ── */
+.input-area {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+textarea#thought-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+  color: var(--white);
+  font-family: var(--font-serif);
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
+  padding: 0.6rem 0 0.9rem;
+  resize: none;
+  outline: none;
+  overflow: hidden;
+  transition: border-color 0.3s;
+  caret-color: var(--white);
+}
+
+textarea#thought-input::placeholder {
+  color: rgba(255,255,255,0.2);
+  font-style: italic;
+}
+
+textarea#thought-input:focus {
+  border-bottom-color: rgba(255,255,255,0.5);
+}
+
+.char-row {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  color: var(--grey);
+  text-align: right;
+  transition: color 0.3s;
+}
+
+.char-row.near-limit { color: #c8a060; }
+.char-row.at-limit   { color: #c06060; }
+
+/* ── BUTTONS ── */
+.primary-btn,
+.ghost-btn {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 0.16em;
+  text-transform: lowercase;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.15s, background 0.2s, color 0.2s;
+  border: none;
+  background: none;
+}
+
+.primary-btn {
+  background: var(--white);
+  color: var(--black);
+  padding: 0.7rem 2rem;
+  border-radius: 0;
+}
+
+.primary-btn:disabled {
+  opacity: 0.2;
+  cursor: default;
+}
+
+.primary-btn:not(:disabled):hover {
+  background: var(--light);
+}
+
+.primary-btn:not(:disabled):active {
+  transform: scale(0.97);
+}
+
+.ghost-btn {
+  color: var(--grey);
+  padding: 0.5rem 0;
+  border-bottom: 1px solid transparent;
+}
+
+.ghost-btn:hover {
+  color: var(--white);
+  border-bottom-color: rgba(255,255,255,0.3);
+}
+
+/* ── ACTION ROWS ── */
+.stranger-actions,
+.write-actions,
+.read-actions {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ── THOUGHT FADE SWAP ── */
+.thought-display.swap-out {
+  animation: swapOut 0.35s ease forwards;
+}
+
+.thought-display.swap-in {
+  animation: swapIn 0.45s ease both;
+}
+
+@keyframes swapOut {
+  to { opacity: 0; transform: translateY(-8px); filter: blur(2px); }
+}
+
+@keytml swapIn {
+  from { opacity: 0; transform: translateY(10px); filter: blur(2px); }
+  to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+}
+
+@keyframes swapIn {
+  from { opacity: 0; transform: translateY(10px); filter: blur(2px); }
+  to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+}
+
+/* ── ENTRY ANIMATIONS ── */
+@keyframes fadeSlideDown {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── CURSOR LINE ── */
+.cursor-blink {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  background: var(--white);
+  vertical-align: text-bottom;
+  margin-left: 2px;
+  animation: blink 1s step-start infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 480px) {
+  .thought-display { font-size: 1.4rem; }
+  textarea#thought-input { font-size: 1.3rem; }
+  .stranger-actions, .write-actions { flex-direction: column; gap: 1.2rem; }
+}
